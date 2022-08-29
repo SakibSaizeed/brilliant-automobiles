@@ -2,8 +2,13 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import React from "react";
 import Card from "react-bootstrap/Card";
 import "./SingleService.css";
+import { useNavigate } from "react-router-dom";
 const SingleService = ({ service }) => {
-  const { name, img } = service;
+  let navigate = useNavigate();
+  const { id, name, img } = service;
+  const handleBooking = (id) => {
+    navigate(`/service/${id}`);
+  };
   return (
     <div className="single-card-container">
       <Card style={{ width: "20rem" }}>
@@ -14,7 +19,9 @@ const SingleService = ({ service }) => {
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
           </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
+          <Button variant="primary" onClick={() => handleBooking(id)}>
+            Book Now
+          </Button>
         </Card.Body>
       </Card>
     </div>

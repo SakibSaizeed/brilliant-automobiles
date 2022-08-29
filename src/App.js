@@ -7,6 +7,7 @@ import About from "./Pages/HomePage/About/About";
 import Services from "./Pages/HomePage/Services/Services";
 import Login from "./Pages/Login/Login";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
+import ServiceDetails from "./Pages/ServiceDetails/ServiceDetails";
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/about" element={<About />}></Route>
         <Route path="/services" element={<Services />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/service/:id" element={<ServiceDetails />}></Route>
 
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
