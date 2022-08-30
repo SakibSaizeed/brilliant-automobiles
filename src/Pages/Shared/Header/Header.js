@@ -27,6 +27,9 @@ function Header() {
             </Nav.Link>
           </Nav>
           <Nav>
+            <Nav.Link as={Link} to="/signup">
+              Sign Up
+            </Nav.Link>
             <Nav.Link as={Link} to="login">
               Login
             </Nav.Link>

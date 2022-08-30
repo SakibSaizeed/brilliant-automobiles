@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 const ServiceDetails = () => {
   const { id } = useParams();
+  //let { id, name } = { obj };
   //console.log(typeof useParams(id));
   return (
     <div>

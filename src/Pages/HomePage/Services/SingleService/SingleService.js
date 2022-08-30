@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const SingleService = ({ service }) => {
   let navigate = useNavigate();
   const { id, name, img } = service;
+
   const handleBooking = (id) => {
     navigate(`/service/${id}`);
   };
