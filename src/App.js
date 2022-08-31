@@ -10,6 +10,7 @@ import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import ServiceDetails from "./Pages/ServiceDetails/ServiceDetails";
 import SignUp from "./Pages/SignUp/SignUp";
 import RequireAuth from "./Pages/RequireAuth/RequireAuth";
+import UserDashBoard from "./Pages/UserDashBoard/UserDashBoard";
 function App() {
   return (
     <>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/services" element={<Services />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/useronboard" element={<UserDashBoard />}></Route>
 
         <Route
           path="/service/:id"

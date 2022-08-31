@@ -8,9 +8,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 function Header() {
   const [user] = useAuthState(auth);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const logout = () => {
-    signOut(auth);
+    signOut(auth).then(navigate("/"));
   };
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">

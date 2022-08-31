@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import "./Login.css";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
+
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,15 +22,19 @@ const Login = () => {
   const handleLogin = (email, password) => {
     signInWithEmailAndPassword(email, password);
   };
+  const handleGoogle = () => {
+    signInWithGoogle();
+  };
+
   //
-  if (user) {
-    navigate(from, { replace: true });
-  }
+  user || user1 ? navigate(from, { replace: true }) : navigate("/");
+
   //
-  if (error) {
+  if (error || error1) {
     return (
       <div>
-        <p>Error: {error.message}</p>
+        <h2 className="text-danger text-center">Error: {error?.message}</h2>:
+        {error1?.message}
       </div>
     );
   }
@@ -38,7 +47,7 @@ const Login = () => {
   return (
     <div>
       <Form className="form-container">
-        <h3>Please Login</h3>
+        <h3 className="text-center">Please Login</h3>
         <Form.Group className="mb-3 mx-7 mt-3" controlId="formGroupEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -64,6 +73,10 @@ const Login = () => {
           {" "}
           Login
         </Button>
+        <br />
+        <span className="text-center">Or</span>
+        <hr />
+        <Button onClick={() => handleGoogle()}>Login With Google</Button>
       </Form>
     </div>
   );

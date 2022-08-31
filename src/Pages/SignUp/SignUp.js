@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import {
   useAuthState,
   useCreateUserWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/useronboard";
+
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const [email, setEmail] = useState("");
@@ -19,32 +24,29 @@ const SignUp = () => {
   if (error) {
     return (
       <div>
-        <p>Error: {error.message}</p>
+        <h2 className="text-danger text-center">Error: {error.message}</h2>
       </div>
     );
   }
   //
   if (loading) {
-    return <p>Loading...</p>;
-  }
-  //
-  if (user) {
-    const { email, displayName } = user.user;
     return (
-      <div>
-        {console.log(user)}
-        <h1>Registered User: {email}</h1>
-        <h3>{displayName}</h3>
-      </div>
+      <Spinner animation="border" role="status" className="text-center">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
     );
+  }
+
+  if (user) {
+    navigate(from, { replace: true });
   }
 
   return (
     <div>
       <Form className="form-container">
-        <h3>Sign Up</h3>
+        <h3 className="text-center text-info">Sign Up</h3>
         <Form.Group className="mb-3 mx-7 mt-3" controlId="formGroupEmail">
-          <Form.Label>Email address</Form.Label>
+          {/* <Form.Label>Email address</Form.Label> */}
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -53,7 +55,7 @@ const SignUp = () => {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formGroupPassword">
-          <Form.Label>Password</Form.Label>
+          {/* <Form.Label>Password</Form.Label> */}
           <Form.Control
             type="password"
             placeholder="Password"
@@ -61,7 +63,7 @@ const SignUp = () => {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
+          {/* <Form.Label>Confirm Password</Form.Label> */}
           <Form.Control type="password" placeholder="Confirm Password" />
         </Form.Group>
         <Button
@@ -71,6 +73,10 @@ const SignUp = () => {
           {" "}
           Sign Up
         </Button>
+        {/* <br />
+        <span className="text-center">Or</span>
+        <hr />
+        <Button onClick={() => handleGoogle()}>Login With Google</Button> */}
       </Form>
     </div>
   );
